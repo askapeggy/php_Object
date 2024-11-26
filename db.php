@@ -7,7 +7,6 @@ class DB
     protected $pdo;
     //資料表
     protected $table;
-    
     // 建構式
     function __construct($table)
     {
