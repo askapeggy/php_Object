@@ -102,13 +102,24 @@ class DB
         return $this->pdo->exec($sql);
     }
     ////////////////////////////////////////////////////////////////////
-    //新增
+    //新增 修改
+    function save($array)
+    {
+        if(isset($array['id']))
+        {//更新
+            $data = $array['id'];
+            unset($array['id']);
+            $set= $this->a2s($array);
+            $sql = "UPDATE $this->table SET ".join(',',$set)." WHERE `id`= '{$data}'";
+        }else
+        {//新增
+            $cols = array_key($array);
+            $sql="INSERT INTO $this->table (`".join("','", $cols)."`) VALUES('".join(',', $array)."')";
+        }
+        echo $sql;
+        return $this->pdo->exec($sql);
+    }
 
-
-    ////////////////////////////////////////////////////////////////////
-    //修改
-
-    
 }
 /*
     // 收尋資料庫 回傳資料
@@ -130,7 +141,8 @@ $DEPT = new DB('member');
 //" Order by 'id' DESC ";
 //'id'=>'1'
 //$dept=$DEPT->all();
-$dept=$DEPT->find("3");
+//$dept=$DEPT->find("3");
 //$DEPT->del('2');
-dd($dept);
+//dd($dept);
+$DEPT->save(['id'=>'11', 'email'=>'123456']);
 ?>
