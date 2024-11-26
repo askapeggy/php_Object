@@ -116,7 +116,7 @@ class DB
             $cols = array_key($array);
             $sql="INSERT INTO $this->table (`".join("','", $cols)."`) VALUES('".join(',', $array)."')";
         }
-        echo $sql;
+        //echo $sql;
         return $this->pdo->exec($sql);
     }
 
